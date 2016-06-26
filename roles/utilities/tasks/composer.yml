@@ -1,0 +1,13 @@
+
+- name: install composer
+  shell: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+  args:
+    creates: /usr/local/bin/composer
+  become: yes
+
+- name: composer install
+  composer: command=install working_dir={{ WEB_APPLICATION_ROOT_DIRECTORY }} optimize_autoloader={{ WEB_APPLICATION_COMPOSER_OPTIMIZE_AUTOLOADER }} no_dev={{ WEB_APPLICATION_COMPOSER_NO_DEV }}
+  become: yes
+  become_user: "{{ WEB_APPLICATION_OWNER_GROUP }}"
+  ignore_errors: true
+

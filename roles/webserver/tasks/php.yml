@@ -1,0 +1,30 @@
+
+- name: add repo
+  apt_repository: repo='ppa:ondrej/php' state=present
+
+# For production deployment php7.0-xml is NOT REQUIRED (only needed for phpunit - testing)
+- name: install packages
+  apt: name={{ item }} update_cache=yes state=latest
+  with_items:
+    - mcrypt
+    - php7.0-mbstring
+    - php7.0-cli
+    - php7.0-curl
+    - php7.0-fpm
+    - php7.0-intl
+    - php7.0-json
+    - php7.0-mcrypt
+    - php7.0-mysql
+    - php7.0-zip
+    - php7.0-xml
+
+- name: ensure php7-fpm cgi.fix_pathinfo=0
+  lineinfile: dest=/etc/php/7.0/fpm/php.ini regexp='^(.*)cgi.fix_pathinfo=' line=cgi.fix_pathinfo=0
+  notify:
+    - restart php7.0-fpm
+    - restart nginx
+
+- name: enable php7 mcrypt module
+  shell: php7enmod mcrypt
+  args:
+    creates: /etc/php/7.0/cli/conf.d/20-mcrypt.ini

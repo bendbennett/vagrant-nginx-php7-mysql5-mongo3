@@ -1,0 +1,17 @@
+
+- name: Adds MySQL server user for localhost
+  mysql_user: user="{{ MySQL_USER_NAME }}" password="{{ MySQL_USER_PASS }}" state="present" login_password="{{ MySQL_ROOT_PASS }}" login_user=root
+
+- name: Secures the MySQL ai_user user
+  mysql_user: user="{{ MySQL_USER_NAME }}" password="{{ MySQL_USER_PASS }}" host="{{ item }}" login_password="{{MySQL_ROOT_PASS}}" login_user=root
+  with_items:
+    - 127.0.0.1
+    - localhost
+    - ::1
+    - "{{ ansible_fqdn }}"
+
+- name: Add the MySQL database
+  mysql_db: db={{ MySQL_DATABASE_NAME }} state=present login_password="{{ MySQL_ROOT_PASS }}" login_user=root
+
+- name: Grant the MySQL user dbservers privs
+  mysql_user: name={{ MySQL_USER_NAME }} password="{{ MySQL_USER_PASS }}" priv=*.*:ALL state=present login_password="{{MySQL_ROOT_PASS}}" login_user=root

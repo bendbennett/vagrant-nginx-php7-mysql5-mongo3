@@ -1,0 +1,8 @@
+
+- include: dbservers.yml
+
+- include: webservers.yml
+  notify:
+    - restart php7.0-fpm
+    - restart nginx
+

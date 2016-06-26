@@ -1,0 +1,6 @@
+
+- include: mysql_default.yml
+  become: yes
+- include: mysql_create_user_and_database.yml
+  when: MySQL_INCLUDE_CREATE_USER_AND_DATABASE == true
+  become: yes

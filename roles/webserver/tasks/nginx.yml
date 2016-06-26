@@ -1,0 +1,15 @@
+
+- name: install packages
+  apt: name={{ item }} update_cache=yes state=latest
+  with_items:
+    - nginx
+
+- name: Configure default nginx site
+  template: src={{ NGINX_CONF }}.nginx.conf.j2 dest=/etc/nginx/sites-available/default
+
+- name: create /var/www/ directory
+  file: dest=/var/www/ state=directory owner={{ WEB_APPLICATION_OWNER_GROUP }} group={{ WEB_APPLICATION_OWNER_GROUP }} mode=0700
+  notify:
+    - restart php7.0-fpm
+    - restart nginx
+

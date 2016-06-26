@@ -1,0 +1,20 @@
+
+- name: install packages
+  apt: name={{ item }} update_cache=yes state=latest
+  with_items:
+    - php-xdebug
+
+- name: add xdebug.ini
+  template: src=xdebug.ini.j2 dest=/etc/php/7.0/mods-available/xdebug.ini
+
+- file: path=/etc/php/7.0/{{ item }}/conf.d/20-xdebug.ini state=absent
+  with_items:
+    - cli
+    - fpm
+
+- file: src=/etc/php/7.0/mods-available/xdebug.ini dest=/etc/php/7.0/{{ item }}/conf.d/20-xdebug.ini owner=root group=root state=link
+  with_items:
+    - "{{ XDEBUG_ENABLE }}"
+  notify:
+    - restart php7.0-fpm
+    - restart nginx

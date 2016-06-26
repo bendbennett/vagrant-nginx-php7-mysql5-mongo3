@@ -1,0 +1,9 @@
+
+- include: git.yml
+  become: yes
+- include: nginx.yml
+  become: yes
+- include: php.yml
+  become: yes
+
+

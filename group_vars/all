@@ -1,0 +1,25 @@
+
+MySQL_ROOT_PASS: root
+
+# Change the following line to "true" and then uncomment and populate the following 3 variables
+MySQL_INCLUDE_CREATE_USER_AND_DATABASE: false
+# MySQL_USER_NAME: {user_name}
+# MySQL_USER_PASS: {user_pass}
+# MySQL_DATABASE_NAME: {database_name}
+
+# Options are symfony2 || laravel5
+NGINX_CONF: symfony2
+# Options are web (symfony2) || public (laravel5)
+PUBLIC_DIRECTORY: web
+WEB_APPLICATION_PUBLIC_DIRECTORY: "{{ WEB_APPLICATION_ROOT_DIRECTORY }}/{{ PUBLIC_DIRECTORY }}"
+
+
+COMPOSER_INCLUDE: true
+# For production deployment set WEB_APPLICATION_COMPOSER_OPTIMIZE_AUTOLOADER: yes && WEB_APPLICATION_COMPOSER_NO_DEV: yes
+WEB_APPLICATION_COMPOSER_OPTIMIZE_AUTOLOADER: no
+WEB_APPLICATION_COMPOSER_NO_DEV: no
+
+
+XDEBUG_INCLUDE: true
+# Options are [cli, fpm] but will have no effect either enabling or disabling xdebug unless XDEBUG_INCLUDE == true
+XDEBUG_ENABLE: [fpm]

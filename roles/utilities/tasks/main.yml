@@ -1,0 +1,6 @@
+
+- include: composer.yml
+  when: COMPOSER_INCLUDE == true
+
+- include: xdebug.yml
+  when: XDEBUG_INCLUDE == true

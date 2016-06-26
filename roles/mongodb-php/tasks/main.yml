@@ -1,0 +1,26 @@
+
+- name: add repo
+  apt_repository: repo='ppa:ondrej/php' state=present
+
+
+- name: install packages
+  apt: name={{ item }} update_cache=yes state=latest
+  with_items:
+    - php7.0-dev
+    - pkg-config
+    - php-pear
+
+- name: install mongodb pecl
+  shell: pecl install mongodb
+  ignore_errors: true
+
+- name: add
+  template: src=mongodb.ini.j2 dest=/etc/php/7.0/mods-available/mongodb.ini
+
+- file: src=/etc/php/7.0/mods-available/mongodb.ini dest=/etc/php/7.0/{{ item }}/conf.d/20-mongodb.ini owner=root group=root state=link
+  with_items:
+    - fpm
+    - cli
+  notify:
+    - restart php7.0-fpm
+    - restart nginx
