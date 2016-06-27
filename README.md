@@ -30,6 +30,6 @@
 * cd into the directory containing the `Vagrantfile`
     * e.g., `cd /Users/you/code/vagrantbox`
 * run `vagrant up`
-* this should completely provision the vagrant box and make your_code available at the IP address set in the Vagrantfile
+* this should completely provision the vagrant box and make your_app available at the IP address set in the Vagrantfile
 * add an entry to your `/etc/hosts` file if you want to use a domain name
-    * e.g., `192.168.33.33  your_code.local`
+    * e.g., `192.168.33.33  your_app.local`

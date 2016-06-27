@@ -1,0 +1,6 @@
+
+# Options (defined in group_vars/all) are symfony2 || laravel5
+# symfony2.yml and laravel5.yml files contain project-type specific variables (e.g., PUBLIC_DIRECTORY)
+- include_vars: "{{ NGINX_CONF }}.yml"
+  with_first_found:
+    - "{{ NGINX_CONF }}.yml"

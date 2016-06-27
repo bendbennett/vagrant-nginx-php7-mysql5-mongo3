@@ -1,0 +1,4 @@
+
+- name: create {{ WEB_APPLICATION_OWNER_GROUP }} shell
+  shell: chsh -s /bin/bash {{ WEB_APPLICATION_OWNER_GROUP }}
+  become: yes

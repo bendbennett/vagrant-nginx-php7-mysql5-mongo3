@@ -1,4 +1,6 @@
 
+# Note that WEB_APPLICATION_ROOT_DIRECTORY and WEB_APPLICATION_OWNER_GROUP are defined within Vagrantfile
+
 MySQL_ROOT_PASS: root
 
 # Change the following line to "true" and then uncomment and populate the following 3 variables
@@ -7,10 +9,10 @@ MySQL_INCLUDE_CREATE_USER_AND_DATABASE: false
 # MySQL_USER_PASS: {user_pass}
 # MySQL_DATABASE_NAME: {database_name}
 
+
 # Options are symfony2 || laravel5
 NGINX_CONF: symfony2
-# Options are web (symfony2) || public (laravel5)
-PUBLIC_DIRECTORY: web
+# PUBLIC_DIRECTORY is defined on basis of NGINX_CONF using core.yml
 WEB_APPLICATION_PUBLIC_DIRECTORY: "{{ WEB_APPLICATION_ROOT_DIRECTORY }}/{{ PUBLIC_DIRECTORY }}"
 
 
