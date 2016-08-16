@@ -9,3 +9,18 @@
 
 - name: MongoDB | Install latest MongoDB release
   apt: pkg=mongodb-org state=present update_cache=yes
+
+- name: MongoDB | Insert hugepage disabled
+  blockinfile:
+    dest: /etc/init/mongod.conf
+    marker: "# {mark} ANSIBLE MANAGED BLOCK"
+    insertafter: "chown \\$DAEMONUSER /var/run/mongodb.pid"
+    block: |2
+        if test -f /sys/kernel/mm/transparent_hugepage/enabled; then
+          echo never > /sys/kernel/mm/transparent_hugepage/enabled
+        fi
+        if test -f /sys/kernel/mm/transparent_hugepage/defrag; then
+          echo never > /sys/kernel/mm/transparent_hugepage/defrag
+        fi
+  notify:
+    - restart mongo

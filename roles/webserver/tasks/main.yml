@@ -1,9 +1,14 @@
 
 - include: git.yml
   become: yes
+
 - include: nginx.yml
   become: yes
+  notify:
+    - restart nginx
+
 - include: php.yml
   become: yes
-
+  notify:
+    - restart php7.0-fpm
 
