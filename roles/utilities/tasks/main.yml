@@ -4,5 +4,3 @@
 
 - include: xdebug.yml
   when: XDEBUG_INCLUDE == true
-
-- include: web_application_owner_shell.yml

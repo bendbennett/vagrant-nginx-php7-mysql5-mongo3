@@ -4,10 +4,3 @@
 
 - name: Configure default nginx site
   template: src={{ NGINX_CONF }}.nginx.conf.j2 dest=/etc/nginx/sites-available/default
-
-- name: create {{ WEB_APPLICATION_ROOT_DIRECTORY }} directory
-  file: dest={{ WEB_APPLICATION_ROOT_DIRECTORY }} state=directory owner={{ WEB_APPLICATION_OWNER_GROUP }} group={{ WEB_APPLICATION_OWNER_GROUP }} mode=0700
-  notify:
-    - restart php7.0-fpm
-    - restart nginx
-

@@ -1,1 +1,3 @@
 .vagrant
+/.idea
+local.retry
